@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import PostList from '../../components/PostList.astro';
+import { ADSENSE } from '../../consts.js';
+
+const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+);
+---
+
+<BaseLayout title="전체 글" description="미국주식 시황과 종목 데이터 분석 글 전체 목록입니다.">
+  <div class="wrap">
+    <section class="hero">
+      <h1>전체 글</h1>
+      <p>총 {posts.length}개의 글</p>
+    </section>
+  </div>
+
+  <div class="wrap shell">
+    <div>
+      <PostList posts={posts} />
+    </div>
+    <aside class="sidebar">
+      <AdSlot slot={ADSENSE.slots.footer} label="스폰서" />
+    </aside>
+  </div>
+</BaseLayout>

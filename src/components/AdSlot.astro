@@ -1,0 +1,35 @@
+---
+import { ADSENSE } from '../consts.js';
+
+interface Props {
+  slot?: string;
+  label?: string;
+  format?: string;
+}
+
+const { slot = '', label = '광고', format = 'auto' } = Astro.props;
+const live = ADSENSE.client !== '' && slot !== '';
+---
+
+<div class="ad-block">
+  <span class="ad-label">{label}</span>
+  {
+    live ? (
+      <Fragment>
+        <ins
+          class="adsbygoogle ad"
+          style="display:block"
+          data-ad-client={ADSENSE.client}
+          data-ad-slot={slot}
+          data-ad-format={format}
+          data-full-width-responsive="true"
+        />
+        <script is:inline>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+      </Fragment>
+    ) : (
+      <div class="ad-placeholder">광고 자리 (애드센스 승인 후 자동 노출)</div>
+    )
+  }
+</div>

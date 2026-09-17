@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE } from '../consts.js';
+---
+
+<BaseLayout
+  title="소개"
+  description={`${SITE.title} 소개 — 미국주식 데이터를 검증 가능한 형태로 정리하는 이유와 작성 원칙.`}
+>
+  <div class="wrap">
+    <div class="page prose">
+      <h1>소개</h1>
+      <p class="lead" style="color:var(--text-dim)">
+        추천 대신 데이터. {SITE.title}이 글을 쓰는 방식입니다.
+      </p>
+
+      <h2>무엇을 다루나요</h2>
+      <p>
+        미국 증시의 시황과 개별 종목을 <strong>공개된 지표 데이터</strong>로 정리합니다. 주가, 거래량,
+        밸류에이션 배수, 실적 추이처럼 누구나 같은 출처에서 확인할 수 있는 숫자를 기준으로 삼습니다.
+      </p>
+
+      <h2>작성 원칙</h2>
+      <ul>
+        <li><strong>모든 수치에 기준일을 붙입니다.</strong> 주가 데이터는 시점이 빠지면 의미가 없습니다.</li>
+        <li><strong>출처를 밝힙니다.</strong> 데이터는 주로 공개 시장 데이터와 기업 공시에서 가져옵니다.</li>
+        <li><strong>매수·매도를 권유하지 않습니다.</strong> 목표주가나 수익률을 약속하지 않습니다.</li>
+        <li><strong>틀린 내용은 수정합니다.</strong> 수정한 글에는 수정일을 표기합니다.</li>
+      </ul>
+
+      <h2>글쓴이</h2>
+      <p>
+        {SITE.author}. 데이터 수집·자동화 도구를 직접 만들어 쓰면서, 매일 확인하던 지표를 정리해
+        공개하고 있습니다. 재무 자문업 등록 사업자가 아니며, 이 사이트의 어떤 글도 투자 자문에
+        해당하지 않습니다.
+      </p>
+
+      <h2>수익 모델</h2>
+      <p>
+        이 사이트는 <strong>광고 수익</strong>으로 운영됩니다. 광고는 콘텐츠와 명확히 구분되는 위치에
+        '스폰서' 표기와 함께 노출되며, 광고주가 글의 내용에 영향을 주지 않습니다.
+      </p>
+
+      <p style="margin-top:32px">
+        문의는 <a href="/contact">문의 페이지</a>를 이용해 주세요.
+      </p>
+    </div>
+  </div>
+</BaseLayout>

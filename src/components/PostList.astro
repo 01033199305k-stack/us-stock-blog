@@ -1,0 +1,33 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { SITE } from '../consts.js';
+
+interface Props {
+  posts: CollectionEntry<'posts'>[];
+}
+
+const { posts } = Astro.props;
+const fmt = new Intl.DateTimeFormat(SITE.lang, {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<div class="post-list">
+  {
+    posts.map((post) => (
+      <a class="post-item" href={`/posts/${post.id}/`}>
+        <div class="meta">
+          <span class="badge">{post.data.category}</span>
+          <time datetime={post.data.pubDate.toISOString()}>{fmt.format(post.data.pubDate)}</time>
+          {post.data.tickers.slice(0, 4).map((t) => (
+            <span class="ticker">{t}</span>
+          ))}
+        </div>
+        <h2>{post.data.title}</h2>
+        <p>{post.data.description}</p>
+      </a>
+    ))
+  }
+</div>

@@ -1,0 +1,62 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AdSlot from '../components/AdSlot.astro';
+import PostList from '../components/PostList.astro';
+import { SITE, ADSENSE } from '../consts.js';
+
+const posts = (await getCollection('posts', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime()
+);
+
+const latest = posts.slice(0, 12);
+const categories = [...new Set(posts.map((p) => p.data.category))];
+const tickers = [...new Set(posts.flatMap((p) => p.data.tickers))].slice(0, 16);
+---
+
+<BaseLayout>
+  <div class="wrap">
+    <section class="hero">
+      <h1>{SITE.tagline}</h1>
+      <p>{SITE.description}</p>
+    </section>
+  </div>
+
+  <div class="wrap shell">
+    <div>
+      <AdSlot slot={ADSENSE.slots.belowTitle} label="스폰서" />
+      <PostList posts={latest} />
+      {posts.length === 0 && <p style="color:var(--text-dim)">아직 발행된 글이 없습니다.</p>}
+    </div>
+
+    <aside class="sidebar">
+      <div class="panel">
+        <h3>카테고리</h3>
+        <div class="meta" style="gap:6px">
+          {categories.map((c) => <span class="badge">{c}</span>)}
+        </div>
+      </div>
+
+      {
+        tickers.length > 0 && (
+          <div class="panel">
+            <h3>다룬 종목</h3>
+            <div class="meta" style="gap:6px">
+              {tickers.map((t) => <span class="ticker">{t}</span>)}
+            </div>
+          </div>
+        )
+      }
+
+      <div class="panel">
+        <h3>이 사이트는</h3>
+        <p style="margin:0;font-size:0.88rem;color:var(--text-dim)">
+          종목 추천이 아니라 <strong>검증 가능한 데이터</strong>를 정리합니다. 모든 수치는 출처와 기준일을
+          함께 표기합니다.
+        </p>
+      </div>
+
+      <AdSlot slot={ADSENSE.slots.footer} label="스폰서" />
+    </aside>
+  </div>
+</BaseLayout>
