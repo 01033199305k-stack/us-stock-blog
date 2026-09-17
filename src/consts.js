@@ -13,8 +13,8 @@ export const SITE = {
 };
 
 export const ADSENSE = {
-  // TODO: 애드센스 승인 후 'ca-pub-0000000000000000' 형식으로 교체
-  client: '',
+  // 게시자 ID (승인 완료 후 광고 슬롯 ID는 아래 slots에 추가)
+  client: 'ca-pub-9852386681125742',
   slots: {
     inArticle: '',
     belowTitle: '',
